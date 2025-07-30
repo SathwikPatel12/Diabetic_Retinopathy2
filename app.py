@@ -1,6 +1,7 @@
 
 import streamlit as st
 import pandas as pd
+import plotly.graph_objects as go
 import joblib
 
 # -------------------------
@@ -173,8 +174,35 @@ if submitted:
         st.success(f"✅ The model predicts **no signs** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
 
     # Confidence Progress, Add a Progress Bar for Confidence
-    st.write("📊 Model Confidence:")
-    st.progress(confidence)
+    #st.write("📊 Model Confidence:")
+    #st.progress(confidence)
+    # -------------------------
+    # Confidence Gauge (Improvement 3)
+    # -------------------------
+    st.markdown("### 📊 Model Confidence Level")
+
+    gauge = go.Figure(go.Indicator(
+    mode="gauge+number",
+    value=confidence * 100,
+    title={'text': "DR Risk (%)"},
+    gauge={
+        'axis': {'range': [0, 100]},
+        'bar': {'color': "green" if prediction == 0 else "red"},
+        'steps': [
+            {'range': [0, 50], 'color': "#d4edda"},
+            {'range': [50, 75], 'color': "#fff3cd"},
+            {'range': [75, 100], 'color': "#f8d7da"},
+        ],
+        'threshold': {
+            'line': {'color': "black", 'width': 4},
+            'thickness': 0.75,
+            'value': confidence * 100
+        }
+    }
+))
+
+st.plotly_chart(gauge)
+
 
 
   
