@@ -209,27 +209,23 @@ if submitted:
     st.plotly_chart(gauge)
 
 
-# -------------------------
-# SHAP Explanation (Improvement 5)
-# -------------------------
-st.markdown("### 🧠 Why This Prediction? (Feature Impact)")
+    # -------------------------
+    # SHAP Explanation (Improvement 5)
+    # -------------------------
+    st.markdown("### 🧠 Why This Prediction? (Feature Impact)")
 
-# Use SHAP's linear explainer for logistic regression
-explainer = shap.Explainer(model, input_df)
+    # Use SHAP's linear explainer for logistic regression
+    explainer = shap.Explainer(model, input_df)
 
-# Get SHAP values
-shap_values = explainer(input_df)
+    # Get SHAP values
+    shap_values = explainer(input_df)
 
-# Plot waterfall chart (for single prediction)
-fig, ax = plt.subplots()
-shap.plots.waterfall(shap_values[0], max_display=6, show=False)
-st.pyplot(fig)
-
-
-    
+    # Plot waterfall chart (for single prediction)
+    fig, ax = plt.subplots()
+    shap.plots.waterfall(shap_values[0], max_display=6, show=False)
+    st.pyplot(fig)
     
  
-
     # Download Prediction Report
     report = f"""
 Prediction: {"DR Present" if prediction else "No DR"}
