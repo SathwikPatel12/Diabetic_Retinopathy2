@@ -79,9 +79,9 @@ animation_mode = st.radio("🎬 Choose Animation Mode:", ["Auto-Rotate", "Manual
 if animation_mode == "Auto-Rotate":
     # Multiple animations for auto-switch
     lottie_urls = [
-        "https://lottie.host/0f63e07a-d84f-4fc1-9c82-f4a92d66cb20/e6RkU4a0Lk.json",
-        "https://lottie.host/0e3c305b-63f2-45e2-9848-0adf87c6c264/JmASOSa6S5.json",
-        "https://lottie.host/cf7f52c4-0011-486e-b4a2-7a08aa8818ea/Njf9ZoAAva.json"
+        "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json",
+        "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json",
+        "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
     ]
 
     # Preload animations
