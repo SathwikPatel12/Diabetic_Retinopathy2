@@ -109,12 +109,14 @@ with st.form("input_form"):
     col1, col2 = st.columns(2)
 
     with col1:
-        age = st.number_input('Age', min_value=30, max_value=105, value=50)
-        systolic_bp = st.number_input('Systolic Blood Pressure', min_value=70.0, max_value=130.0, value=120.0)
+        age = st.number_input('Age', min_value=30, max_value=105, value=50, help="Enter the patient's age in years (30–105)")
+        systolic_bp = st.number_input('Systolic Blood Pressure', min_value=70.0, max_value=130.0, value=120.0,
+                                      help="The top number of blood pressure (normal ~120 mmHg)")
 
     with col2:
-        cholesterol = st.number_input('Cholesterol Level', min_value=70.0, max_value=130.0, value=90.0)
-        diastolic_bp = st.number_input('Diastolic Blood Pressure', min_value=60.0, max_value=120.0, value=80.0)
+        cholesterol = st.number_input('Cholesterol Level', min_value=70.0, max_value=130.0, value=90.0, help="Measured in mg/dL; higher levels may increase risk")
+        diastolic_bp = st.number_input('Diastolic Blood Pressure', min_value=60.0, max_value=120.0, value=80.0,
+                                      help="The bottom number of blood pressure (normal ~80 mmHg)")
 
     submitted = st.form_submit_button("🔍 Predict")
 
