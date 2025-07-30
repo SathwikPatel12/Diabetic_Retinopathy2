@@ -75,13 +75,14 @@ urls = [
     "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json"  # Doctor
 ]
 
-st.markdown("### 🎞️ Medical Animations")
+# Updated heading (replaces "🎞️ Medical Animations")
+st.markdown("### 👋 Welcome to Your Eye Health Companion")
 
 # Load both animations
 animations = [load_lottie_url(url) for url in urls]
 
-# Display them side by side
-col1, col2 = st.columns(2)
+# Display them side by side with slightly tighter spacing
+col1, col2 = st.columns([1, 1], gap="small")
 
 with col1:
     if animations[0]:
@@ -94,6 +95,7 @@ with col2:
         st_lottie(animations[1], height=250)
     else:
         st.warning("⚠️ Animation couldn't load.")
+
 
 
 
