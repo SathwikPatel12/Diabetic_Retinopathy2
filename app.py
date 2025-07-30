@@ -173,18 +173,21 @@ if submitted:
     else:
         st.success(f"✅ The model predicts **no signs** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
 
+    
     # Confidence Progress, Add a Progress Bar for Confidence
     #st.write("📊 Model Confidence:")
     #st.progress(confidence)
     # -------------------------
-    # Confidence Gauge (Improvement 3)
+    # Confidence Gauge Meter (Improvement 2, advanced to just above progress bar)
     # -------------------------
     st.markdown("### 📊 Model Confidence Level")
 
     gauge = go.Figure(go.Indicator(
         mode="gauge+number",
         value=confidence * 100,
-        title={'text': "DR Risk (%)"},
+        #title={'text': "DR Risk (%)"},
+        title={'text': "Confidence in DR Presence (%)" if prediction == 1 else "Confidence in No DR (%)"},
+
         gauge={
             'axis': {'range': [0, 100]},
             'bar': {'color': "green" if prediction == 0 else "red"},
@@ -202,10 +205,7 @@ if submitted:
     ))
 
     st.plotly_chart(gauge)
-
-
-
-  
+ 
 
     # Download Prediction Report
     report = f"""
