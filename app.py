@@ -44,21 +44,6 @@ st.markdown("""
 st.title("👁️🩺 Diabetic Retinopathy Prediction App")
 st.markdown("This app predicts whether a person shows signs of diabetic retinopathy based on input health features.")
 
-
-from streamlit_lottie import st_lottie
-import requests
-
-def load_lottie_url(url):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-
-lottie_medical = load_lottie_url("https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json")  # Can replace with others
-st_lottie(lottie_medical, height=200)
-
-
-
 # -------------------------
 # Sidebar Info
 # -------------------------
@@ -149,6 +134,18 @@ if submitted:
     # Confidence Progress, Add a Progress Bar for Confidence
     st.write("📊 Model Confidence:")
     st.progress(confidence)
+
+    import plotly.graph_objects as go
+
+    if submitted:
+        gauge = go.Figure(go.Indicator(
+            mode="gauge+number",
+            value=confidence * 100,
+            title={'text': "Diabetic Retinopathy Risk"},
+            gauge={'axis': {'range': [0, 100]}, 'bar': {'color': "darkblue"}}
+        ))
+        st.plotly_chart(gauge)
+  
 
     # Download Prediction Report
     report = f"""
