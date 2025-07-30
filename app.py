@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
@@ -5,6 +6,7 @@ import requests
 import time
 from streamlit_lottie import st_lottie
 import joblib
+
 
 # -------------------------
 # Load Model (with caching)
@@ -21,7 +23,7 @@ model = load_model()
 st.set_page_config(page_title="Diabetic Retinopathy Detection", layout="centered")
 
 # -------------------------
-# Custom CSS Styling
+# Custom CSS Styling (Improvement 1)
 # -------------------------
 st.markdown("""
     <style>
@@ -49,45 +51,56 @@ st.title("👁️🩺 Diabetic Retinopathy Prediction App")
 st.markdown("This app predicts whether a person shows signs of diabetic retinopathy based on input health features.")
 
 # -------------------------
-# Load and Display Lottie Animations
+# Lottie Animation Selector (Improvement 2 – multiple options)
+# ✅ Purpose:
+# Adds visual interest and professional medical feel.
+# Makes your app more welcoming and modern.
 # -------------------------
-def load_lottie_url(url: str):
-    try:
-        r = requests.get(url)
-        if r.status_code == 200:
-            return r.json()
-    except:
+
+
+
+
+
+
+
+
+from streamlit_lottie import st_lottie
+import requests
+
+def load_lottie_url(url):
+    r = requests.get(url)
+    if r.status_code != 200:
         return None
-    return None
+    return r.json()
 
-lottie_urls = {
-    "Hello Bot": "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json",
-    "Doctor": "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json",
-    "Medical Animation": "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
-}
+# Dropdown for user to choose animation
+animation_choice = st.selectbox("🎞️ Choose an Animation Style:", ["Hello Bot", "Doctor", "Medical Animation", "Brain Diagnosis"])
 
-@st.cache_data
-def load_all_lotties():
-    return {name: load_lottie_url(url) for name, url in lottie_urls.items()}
+# Pick animation based on selection
+if animation_choice == "Hello Bot":
+    url = "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json"
+elif animation_choice == "Doctor":
+    url = "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json"
+elif animation_choice == "Medical Animation":
+    url = "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
+else:  # Brain Diagnosis
+    url = "https://assets9.lottiefiles.com/packages/lf20_F9A4lW.json"
 
-lotties = load_all_lotties()
 
-with st.container():
-    for name, lottie in lotties.items():
-        st_lottie(lottie, height=250)
-        time.sleep(1)
-    st.markdown("---")
+# Load a medical animation
+lottie_medical = load_lottie_url(url)
 
-st.markdown("### 🎞️ Choose Your Animation")
-selection = st.selectbox("Choose an animation style:", list(lotties.keys()))
-selected_animation = lotties.get(selection)
-if selected_animation:
-    st_lottie(selected_animation, height=300)
+# Display the selected animation
+if lottie_medical:
+    st_lottie(lottie_medical, height=250)
 else:
-    st.warning("⚠️ Could not load the selected animation.")
+    st.warning("⚠️ Animation couldn't load.")
+
+
+
 
 # -------------------------
-# Sidebar Info
+# Sidebar Layout and Info
 # -------------------------
 with st.sidebar:
     st.title("🧭 Navigation")
@@ -96,14 +109,15 @@ with st.sidebar:
         st.markdown("""
         This tool predicts **Diabetic Retinopathy (DR)** using vitals and simple inputs.
 
-        - ✅ **Purpose**: Predict Diabetic Retinopathy presence  
-        - ⚙️ **Model**: Logistic Regression (scikit-learn)  
+        - ✅ **Purpose**: Predict Diabetic Retinopathy presence
+        - ⚙️ **Model**: Logistic Regression  (scikit-learn)
         - 📊 Features: Age, BP, Cholesterol  
-        - 📐 **Derived Features**: Pulse Pressure & MAP  
+        - 📐 **Derived Features**: Pulse Pressure & MAP
         - 🧠 **Built with**: Streamlit + Joblib
         """)
 
     st.markdown("---")
+
     st.markdown("### 🧪 Input Guide")
     st.markdown("""
     - **Age**: 30–105 years  
@@ -114,21 +128,27 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown("📁 [GitHub Source](https://github.com/SathwikPatel12/Diabetic_Retinopathy2)")
+   
+
 
 # -------------------------
 # Input Form
+# Form-based input layout
 # -------------------------
 with st.form("input_form"):
     st.subheader("📝 Enter Patient Details")
+
     col1, col2 = st.columns(2)
 
     with col1:
-        age = st.number_input('Age', min_value=30, max_value=105, value=50)
-        systolic_bp = st.number_input('Systolic Blood Pressure', min_value=70.0, max_value=130.0, value=120.0)
+        age = st.number_input('Age', min_value=30, max_value=105, value=50, help="Enter the patient's age in years (30–105)")
+        systolic_bp = st.number_input('Systolic Blood Pressure', min_value=70.0, max_value=130.0, value=120.0,
+                                      help="The top number of blood pressure (normal ~120 mmHg)")
 
     with col2:
-        cholesterol = st.number_input('Cholesterol Level', min_value=70.0, max_value=130.0, value=90.0)
-        diastolic_bp = st.number_input('Diastolic Blood Pressure', min_value=60.0, max_value=120.0, value=80.0)
+        cholesterol = st.number_input('Cholesterol Level', min_value=70.0, max_value=130.0, value=90.0, help="Measured in mg/dL; higher levels may increase risk")
+        diastolic_bp = st.number_input('Diastolic Blood Pressure', min_value=60.0, max_value=120.0, value=80.0,
+                                      help="The bottom number of blood pressure (normal ~80 mmHg)")
 
     submitted = st.form_submit_button("🔍 Predict")
 
@@ -138,6 +158,7 @@ with st.form("input_form"):
 pulse_pressure = systolic_bp - diastolic_bp
 mean_arterial_pressure = (systolic_bp + 2 * diastolic_bp) / 3
 
+# Prepare input DataFrame
 input_df = pd.DataFrame([{
     'age': age,
     'systolic_bp': systolic_bp,
@@ -148,18 +169,25 @@ input_df = pd.DataFrame([{
 }])
 
 # -------------------------
-# Prediction and Output
+# Prediction
 # -------------------------
 if submitted:
+    # Make prediction
     prediction = model.predict(input_df)[0]
     pred_proba = model.predict_proba(input_df)[0]
     confidence = pred_proba[prediction]
 
+    # Derived Features Box
+    # Display derived features (optional)
+    # Detect Streamlit theme (light or dark)
     theme = st.get_option("theme.base")
     is_dark = theme == "dark"
+
+    # Set background color accordingly
     bg_color = "#2b2b2b" if is_dark else "#f0f0f5"
     text_color = "#ffffff" if is_dark else "#000000"
 
+    # Render the styled box
     st.markdown(f"""
         <div style='
             padding: 10px;
@@ -173,34 +201,58 @@ if submitted:
         </div>
     """, unsafe_allow_html=True)
 
+
+    # -------------------------
+    # Display prediction result    (Improvement 2)
+    # -------------------------
     st.markdown("### 🔍 Prediction Result")
+    #if prediction == 1:
+    #    st.error(f"🧪 The model predicts **presence** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
+    #else:
+    #    st.success(f"✅ The model predicts **no signs** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
+    
     if prediction == 1:
         st.error(f"🧪 The model predicts **presence** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
+
         with st.expander("📢 What to Do Next?"):
             st.markdown("""
             - 👨‍⚕️ **Please consult an eye care specialist or diabetologist immediately.**
             - 🏥 Early treatment can help prevent vision loss.
-            - 📘 Resources:
-                - [ADA Eye Health](https://diabetes.org/health-wellness/eye-health)  
-                - [WHO on DR](https://www.who.int/news-room/fact-sheets/detail/blindness-and-visual-impairment)
-            """)
-    else:
-        st.success(f"✅ The model predicts **no signs** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
-        with st.expander("💡 Wellness Tip"):
-            st.markdown("""
-            - 👁️ Still important to get eyes checked **annually**
-            - 🥗 Maintain a healthy diet and regular exercise
-            - 📖 [NIH: DR Info](https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/diabetic-retinopathy)
+            - 📘 You can read more at:
+                - [American Diabetes Association](https://diabetes.org/health-wellness/eye-health)
+                - [WHO on Diabetic Retinopathy](https://www.who.int/news-room/fact-sheets/detail/blindness-and-visual-impairment)
+                - [Find a Retina Specialist Near You](https://www.centreforsight.net/eye-specialists-near-me)
+            - 💊 Discuss your medications, blood sugar control, and eye care plan with a certified provider.
             """)
 
+    else:
+        st.success(f"✅ The model predicts **no signs** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
+    
+        with st.expander("💡 Wellness Tip"):
+            st.markdown("""
+            - 👁️ It's still important to get your eyes checked **annually**.
+            - 🥗 Maintain a healthy diet and regular exercise.
+            - 📖 Learn about prevention: [NIH Diabetic Eye Disease Info](https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/diabetic-retinopathy)
+            """)
+ 
+    
+    # Confidence Progress, Add a Progress Bar for Confidence
+    #st.write("📊 Model Confidence:")
+    #st.progress(confidence)
+    # -------------------------
+    # Confidence Gauge Meter (Improvement 2, advanced to just above progress bar)
+    # -------------------------
     st.markdown("### 📊 Model Confidence Level")
+
     gauge = go.Figure(go.Indicator(
         mode="gauge+number",
         value=confidence * 100,
+        #title={'text': "DR Risk (%)"},
         title={'text': "Confidence in DR Presence (%)" if prediction == 1 else "Confidence in No DR (%)"},
+
         gauge={
             'axis': {'range': [0, 100]},
-            'bar': {'color': "red" if prediction == 1 else "green"},
+            'bar': {'color': "green" if prediction == 0 else "red"},
             'steps': [
                 {'range': [0, 50], 'color': "#d4edda"},
                 {'range': [50, 75], 'color': "#fff3cd"},
@@ -213,8 +265,12 @@ if submitted:
             }
         }
     ))
+
     st.plotly_chart(gauge)
 
+    
+ 
+    # Download Prediction Report
     report = f"""
 Prediction: {"DR Present" if prediction else "No DR"}
 Confidence: {confidence:.2f}
