@@ -17,6 +17,27 @@ model = load_model()
 # -------------------------
 st.set_page_config(page_title="Diabetic Retinopathy Detection", layout="centered")
 
+# Custom CSS Styling
+st.markdown("""
+    <style>
+        .main {
+            background-color: #fefefe;
+        }
+        h1 {
+            font-family: 'Helvetica Neue', sans-serif;
+            color: #2c3e50;
+        }
+        .stButton>button {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px;
+            padding: 10px;
+            font-weight: bold;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+
 # -------------------------
 # App Title & Description
 # -------------------------
