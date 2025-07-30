@@ -68,7 +68,7 @@ import requests
 import time
 from streamlit_lottie import st_lottie
 
-# Function to load Lottie JSON
+# Load animation from URL
 def load_lottie_url(url: str):
     try:
         r = requests.get(url)
@@ -78,39 +78,37 @@ def load_lottie_url(url: str):
         return None
     return None
 
-# Animation URLs (working ones you selected)
-lottie_urls = [
-    "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json",
-    "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json",
-    "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
-]
+# Working Lottie URLs
+lottie_urls = {
+    "Hello Bot": "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json",
+    "Doctor": "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json",
+    "Medical Animation": "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
+}
 
-# Load animations just once (cache)
+# Load all Lotties (cache)
 @st.cache_data
-def load_all_lotties(urls):
-    return [load_lottie_url(url) for url in urls]
+def load_all_lotties():
+    return {name: load_lottie_url(url) for name, url in lottie_urls.items()}
 
-lotties = load_all_lotties(lottie_urls)
+lotties = load_all_lotties()
 
-# Set up session state index
-if 'anim_index' not in st.session_state:
-    st.session_state.anim_index = 0
-if 'last_update' not in st.session_state:
-    st.session_state.last_update = time.time()
+# Display each one for a short time (non-blocking)
+with st.container():
+    for name, lottie in lotties.items():
+        st_lottie(lottie, height=250)
+        time.sleep(1)  # short pause between animations
+    st.markdown("---")
 
-# Animation logic (rotate every 3 seconds without blocking input)
-now = time.time()
-if now - st.session_state.last_update >= 3:
-    st.session_state.anim_index = (st.session_state.anim_index + 1) % len(lotties)
-    st.session_state.last_update = now
-    st.experimental_rerun()
+# Dropdown for manual animation selection
+st.markdown("### 🎞️ Choose Your Animation")
+selection = st.selectbox("Choose an animation style:", list(lotties.keys()))
 
-# Display animation
-st_lottie(lotties[st.session_state.anim_index], height=300)
+selected_animation = lotties.get(selection)
+if selected_animation:
+    st_lottie(selected_animation, height=300)
+else:
+    st.warning("⚠️ Could not load the selected animation.")
 
-# ---- Now rest of your app can continue below this ----
-st.title("👁️🩺 Diabetic Retinopathy Prediction App")
-st.markdown("This app predicts whether a person shows signs of diabetic retinopathy based on input health features.")
 
 
 
