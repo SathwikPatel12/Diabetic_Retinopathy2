@@ -58,18 +58,19 @@ def load_lottie_url(url):
     return r.json()
 
 # Dropdown for user to choose animation
-animation_choice = st.selectbox("🎞️ Choose an Animation Style:", ["Doctor", "AI Brain", "Scan", "Brain Diagnosis"])
+animation_choice = st.selectbox("🎞️ Choose an Animation Style:", ["Hello Bot", "Doctor", "Scan", "Brain Diagnosis"])
 
 # Pick animation based on selection
-if animation_choice == "Doctor":
+if animation_choice == "Hello Bot":
     url = "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json"
-elif animation_choice == "AI Brain":
+elif animation_choice == "Doctor":
     url = "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json"
 elif animation_choice == "Scan":
     url = "https://assets4.lottiefiles.com/packages/lf20_cg3nkkkd.json"
 else:  # Brain Diagnosis
     url = "https://assets9.lottiefiles.com/packages/lf20_F9A4lW.json"
 
+# Load a medical animation
 lottie_medical = load_lottie_url(url)
 
 # Display the selected animation
