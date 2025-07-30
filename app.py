@@ -87,29 +87,21 @@ else:
 
 
 # -------------------------
-# Sidebar Info
-# -------------------------
-#with st.sidebar.expander("ℹ️ About this app"):
- #   st.markdown("""
-  #  - ✅ **Purpose**: Predict Diabetic Retinopathy presence
-   # - ⚙️ **Model**: Logistic Regression (scikit-learn)
-    #- 📐 **Derived Features**: Pulse Pressure & MAP
-   # - 🧠 **Built with**: Streamlit + Joblib
-  #  """)
-# -------------------------
 # Sidebar Layout and Info
 # -------------------------
 with st.sidebar:
     st.title("🧭 Navigation")
 
-    st.markdown("### ℹ️ About This App")
-    st.info("""
-    This tool predicts **Diabetic Retinopathy (DR)** using vitals and simple inputs.
-    
-    - Model: Logistic Regression
-    - Features: Age, BP, Cholesterol
-    - Derived: Pulse Pressure, MAP
-    """)
+    with st.expander("ℹ️ About This App"):
+        st.markdown("""
+        This tool predicts **Diabetic Retinopathy (DR)** using vitals and simple inputs.
+
+        - ✅ **Purpose**: Predict Diabetic Retinopathy presence
+        - ⚙️ **Model**: Logistic Regression  (scikit-learn)
+        - 📊 Features: Age, BP, Cholesterol  
+        - 📐 **Derived Features**: Pulse Pressure & MAP
+        - 🧠 **Built with**: Streamlit + Joblib
+        """)
 
     st.markdown("---")
 
@@ -122,13 +114,8 @@ with st.sidebar:
     """)
 
     st.markdown("---")
-    st.markdown("📁 [GitHub Source](https://github.com/your-repo-url)")
-
-    st.caption("👨‍⚕️ Made with ❤️ by Sathwik Patel")
-
-
-
-
+    st.markdown("📁 [GitHub Source](https://github.com/SathwikPatel12/Diabetic_Retinopathy2)")
+   
 
 
 # -------------------------
