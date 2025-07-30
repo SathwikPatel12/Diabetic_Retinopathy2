@@ -41,6 +41,9 @@ Diabetic Retinopathy is a **serious eye condition** caused by high blood sugar l
 ### 🔹 Prediction Result with Confidence Gauge
 ![Prediction Result Screenshot](images/result_gauge.png)
 
+### result2
+![Prediction Result Screenshot](images/result_gauge2.png)
+
 ---
 
 ## ⚙️ How It Works
