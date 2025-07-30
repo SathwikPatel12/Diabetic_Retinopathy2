@@ -197,6 +197,7 @@ if submitted:
     #    st.error(f"🧪 The model predicts **presence** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
     #else:
     #    st.success(f"✅ The model predicts **no signs** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
+    
     if prediction == 1:
         st.error(f"🧪 The model predicts **presence** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
 
@@ -205,8 +206,8 @@ if submitted:
             - 👨‍⚕️ **Please consult an eye care specialist or diabetologist immediately.**
             - 🏥 Early treatment can help prevent vision loss.
             - 📘 You can read more at:
-                - [American Diabetes Association](https://www.diabetes.org/diabetes/eye-complications)
-                - [WHO on Diabetic Retinopathy](https://www.who.int/news-room/fact-sheets/detail/blindness-and-vision-impairment)
+                - [American Diabetes Association](https://diabetes.org/health-wellness/eye-health)
+                - [WHO on Diabetic Retinopathy](https://www.who.int/news-room/fact-sheets/detail/blindness-and-visual-impairment)
                 - [Find a Retina Specialist Near You](https://www.asrs.org/find-a-specialist)
             - 💊 Discuss your medications, blood sugar control, and eye care plan with a certified provider.
             """)
