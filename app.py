@@ -1,5 +1,4 @@
 
-
 import streamlit as st
 import pandas as pd
 import joblib
@@ -46,10 +45,10 @@ with st.form("input_form"):
 
     with col1:
         age = st.number_input('Age', min_value=30, max_value=105, value=50)
-        cholesterol = st.number_input('Cholesterol Level', min_value=70.0, max_value=130.0, value=90.0)
+        systolic_bp = st.number_input('Systolic Blood Pressure', min_value=70.0, max_value=130.0, value=120.0)
 
     with col2:
-        systolic_bp = st.number_input('Systolic Blood Pressure', min_value=70.0, max_value=130.0, value=120.0)
+        cholesterol = st.number_input('Cholesterol Level', min_value=70.0, max_value=130.0, value=90.0)
         diastolic_bp = st.number_input('Diastolic Blood Pressure', min_value=60.0, max_value=120.0, value=80.0)
 
     submitted = st.form_submit_button("🔍 Predict")
@@ -81,13 +80,28 @@ if submitted:
 
     # Derived Features Box
     # Display derived features (optional)
-    st.markdown("### 🧠 Derived Features (Calculated Internally)")
+    # Detect Streamlit theme (light or dark)
+    theme = st.get_option("theme.base")
+    is_dark = theme == "dark"
+
+    # Set background color accordingly
+    bg_color = "#2b2b2b" if is_dark else "#f0f0f5"
+    text_color = "#ffffff" if is_dark else "#000000"
+
+    # Render the styled box
     st.markdown(f"""
-        <div style='padding: 10px; background-color: #f0f0f5; border-radius: 10px;'>
+        <div style='
+            padding: 10px;
+            background-color: {bg_color};
+            color: {text_color};
+            border-radius: 10px;
+            margin-top: 10px;
+        '>
             <b>Pulse Pressure:</b> {pulse_pressure:.2f} mmHg<br>
             <b>Mean Arterial Pressure:</b> {mean_arterial_pressure:.2f} mmHg
         </div>
     """, unsafe_allow_html=True)
+
 
     # Display prediction result
     st.markdown("### 🔍 Prediction Result")
