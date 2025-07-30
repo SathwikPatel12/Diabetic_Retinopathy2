@@ -17,7 +17,9 @@ model = load_model()
 # -------------------------
 st.set_page_config(page_title="Diabetic Retinopathy Detection", layout="centered")
 
-# Custom CSS Styling
+# -------------------------
+# Custom CSS Styling (Improvement 1)
+# -------------------------
 st.markdown("""
     <style>
         .main {
@@ -36,7 +38,6 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
-
 
 # -------------------------
 # App Title & Description
