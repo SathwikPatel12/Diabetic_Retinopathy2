@@ -97,37 +97,7 @@ for lottie in lotties:
 
 
 
-from streamlit_lottie import st_lottie
-import requests
 
-def load_lottie_url(url):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-
-# Dropdown for user to choose animation
-animation_choice = st.selectbox("🎞️ Choose an Animation Style:", ["Hello Bot", "Doctor", "Medical Animation", "Brain Diagnosis"])
-
-# Pick animation based on selection
-if animation_choice == "Hello Bot":
-    url = "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json"
-elif animation_choice == "Doctor":
-    url = "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json"
-elif animation_choice == "Medical Animation":
-    url = "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
-else:  # Brain Diagnosis
-    url = "https://assets9.lottiefiles.com/packages/lf20_F9A4lW.json"
-
-
-# Load a medical animation
-lottie_medical = load_lottie_url(url)
-
-# Display the selected animation
-if lottie_medical:
-    st_lottie(lottie_medical, height=250)
-else:
-    st.warning("⚠️ Animation couldn't load.")
 
 
 
