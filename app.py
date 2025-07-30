@@ -236,7 +236,7 @@ st.pyplot(fig)
     
  
     # Download Prediction Report
-report = f"""
+    report = f"""
 Prediction: {"DR Present" if prediction else "No DR"}
 Confidence: {confidence:.2f}
 Pulse Pressure: {pulse_pressure:.2f}
