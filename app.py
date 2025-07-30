@@ -182,26 +182,26 @@ if submitted:
     st.markdown("### 📊 Model Confidence Level")
 
     gauge = go.Figure(go.Indicator(
-    mode="gauge+number",
-    value=confidence * 100,
-    title={'text': "DR Risk (%)"},
-    gauge={
-        'axis': {'range': [0, 100]},
-        'bar': {'color': "green" if prediction == 0 else "red"},
-        'steps': [
-            {'range': [0, 50], 'color': "#d4edda"},
-            {'range': [50, 75], 'color': "#fff3cd"},
-            {'range': [75, 100], 'color': "#f8d7da"},
-        ],
-        'threshold': {
-            'line': {'color': "black", 'width': 4},
-            'thickness': 0.75,
-            'value': confidence * 100
+        mode="gauge+number",
+        value=confidence * 100,
+        title={'text': "DR Risk (%)"},
+        gauge={
+            'axis': {'range': [0, 100]},
+            'bar': {'color': "green" if prediction == 0 else "red"},
+            'steps': [
+                {'range': [0, 50], 'color': "#d4edda"},
+                {'range': [50, 75], 'color': "#fff3cd"},
+                {'range': [75, 100], 'color': "#f8d7da"},
+            ],
+            'threshold': {
+                'line': {'color': "black", 'width': 4},
+                'thickness': 0.75,
+                'value': confidence * 100
+            }
         }
-    }
-))
+    ))
 
-st.plotly_chart(gauge)
+    st.plotly_chart(gauge)
 
 
 
