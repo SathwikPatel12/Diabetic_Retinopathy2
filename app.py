@@ -48,18 +48,17 @@ st.markdown("""
 st.title("👁️🩺 Diabetic Retinopathy Prediction App")
 st.markdown("This app predicts whether a person shows signs of diabetic retinopathy based on input health features.")
 
+
 # -------------------------
-# Lottie Animation Selector (Improvement 2 – multiple options)
+# Lottie Animation Display (Modified)
+# ✅ Show first 2 animations side by side, no dropdown
 # ✅ Purpose:
 # Adds visual interest and professional medical feel.
 # Makes your app more welcoming and modern.
 # -------------------------
 
 
-# -------------------------
-# Lottie Animation Display (Modified)
-# ✅ Show first 2 animations side by side, no dropdown
-# -------------------------
+
 from streamlit_lottie import st_lottie
 import requests
 
@@ -95,8 +94,6 @@ with col2:
         st_lottie(animations[1], height=250)
     else:
         st.warning("⚠️ Animation couldn't load.")
-
-
 
 
 
