@@ -2,8 +2,6 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
-import shap
-import matplotlib.pyplot as plt
 import joblib
 
 # -------------------------
@@ -91,13 +89,47 @@ else:
 # -------------------------
 # Sidebar Info
 # -------------------------
-with st.sidebar.expander("ℹ️ About this app"):
-    st.markdown("""
-    - ✅ **Purpose**: Predict Diabetic Retinopathy presence
-    - ⚙️ **Model**: Logistic Regression (scikit-learn)
-    - 📐 **Derived Features**: Pulse Pressure & MAP
-    - 🧠 **Built with**: Streamlit + Joblib
+#with st.sidebar.expander("ℹ️ About this app"):
+ #   st.markdown("""
+  #  - ✅ **Purpose**: Predict Diabetic Retinopathy presence
+   # - ⚙️ **Model**: Logistic Regression (scikit-learn)
+    #- 📐 **Derived Features**: Pulse Pressure & MAP
+   # - 🧠 **Built with**: Streamlit + Joblib
+  #  """)
+# -------------------------
+# Sidebar Layout and Info
+# -------------------------
+with st.sidebar:
+    st.title("🧭 Navigation")
+
+    st.markdown("### ℹ️ About This App")
+    st.info("""
+    This tool predicts **Diabetic Retinopathy (DR)** using vitals and simple inputs.
+    
+    - Model: Logistic Regression
+    - Features: Age, BP, Cholesterol
+    - Derived: Pulse Pressure, MAP
     """)
+
+    st.markdown("---")
+
+    st.markdown("### 🧪 Input Guide")
+    st.markdown("""
+    - **Age**: 30–105 years  
+    - **Systolic BP**: 70–130 mmHg  
+    - **Diastolic BP**: 60–120 mmHg  
+    - **Cholesterol**: 70–130 mg/dL
+    """)
+
+    st.markdown("---")
+    st.markdown("📁 [GitHub Source](https://github.com/your-repo-url)")
+
+    st.caption("👨‍⚕️ Made with ❤️ by Sathwik Patel")
+
+
+
+
+
 
 # -------------------------
 # Input Form
