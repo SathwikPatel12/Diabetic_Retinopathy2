@@ -56,6 +56,10 @@ st.markdown("This app predicts whether a person shows signs of diabetic retinopa
 # -------------------------
 
 
+# -------------------------
+# Lottie Animation Display (Modified)
+# ✅ Show first 2 animations side by side, no dropdown
+# -------------------------
 from streamlit_lottie import st_lottie
 import requests
 
@@ -65,28 +69,31 @@ def load_lottie_url(url):
         return None
     return r.json()
 
-# Dropdown for user to choose animation
-animation_choice = st.selectbox("🎞️ Choose an Animation Style:", ["Hello Bot", "Doctor", "Medical Animation", "Brain Diagnosis"])
+# Define URLs for first two animations
+urls = [
+    "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json",  # Hello Bot
+    "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json"  # Doctor
+]
 
-# Pick animation based on selection
-if animation_choice == "Hello Bot":
-    url = "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json"
-elif animation_choice == "Doctor":
-    url = "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json"
-elif animation_choice == "Medical Animation":
-    url = "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
-else:  # Brain Diagnosis
-    url = "https://assets9.lottiefiles.com/packages/lf20_F9A4lW.json"
+st.markdown("### 🎞️ Medical Animations")
 
+# Load both animations
+animations = [load_lottie_url(url) for url in urls]
 
-# Load a medical animation
-lottie_medical = load_lottie_url(url)
+# Display them side by side
+col1, col2 = st.columns(2)
 
-# Display the selected animation
-if lottie_medical:
-    st_lottie(lottie_medical, height=250)
-else:
-    st.warning("⚠️ Animation couldn't load.")
+with col1:
+    if animations[0]:
+        st_lottie(animations[0], height=250)
+    else:
+        st.warning("⚠️ Animation couldn't load.")
+
+with col2:
+    if animations[1]:
+        st_lottie(animations[1], height=250)
+    else:
+        st.warning("⚠️ Animation couldn't load.")
 
 
 
