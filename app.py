@@ -208,31 +208,6 @@ if submitted:
 
     st.plotly_chart(gauge)
 
-
-# -------------------------
-# SHAP Explanation (Improvement 5 - fixed for pipeline)
-# -------------------------
-st.markdown("### 🧠 Why This Prediction? (Feature Impact)")
-
-# Extract the scaler and classifier from the pipeline
-scaler = model.named_steps['scaler']
-classifier = model.named_steps['classifier']
-
-# Scale the input
-X_scaled = scaler.transform(input_df)
-
-# Use SHAP's linear explainer for logistic regression
-explainer = shap.LinearExplainer(classifier, X_scaled, feature_names=input_df.columns)
-
-# Get SHAP values
-shap_values = explainer.shap_values(X_scaled)
-
-# Plot waterfall chart (for single prediction)
-fig, ax = plt.subplots()
-shap.plots._waterfall.waterfall_legacy(explainer.expected_value, shap_values[0], feature_names=input_df.columns, show=False)
-st.pyplot(fig)
-
-    
     
  
     # Download Prediction Report
