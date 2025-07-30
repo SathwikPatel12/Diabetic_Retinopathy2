@@ -135,16 +135,7 @@ if submitted:
     st.write("📊 Model Confidence:")
     st.progress(confidence)
 
-import plotly.graph_objects as go
 
-if submitted:
-    gauge = go.Figure(go.Indicator(
-        mode="gauge+number",
-        value=confidence * 100,
-        title={'text': "Diabetic Retinopathy Risk"},
-        gauge={'axis': {'range': [0, 100]}, 'bar': {'color': "darkblue"}}
-    ))
-    st.plotly_chart(gauge)
   
 
     # Download Prediction Report
