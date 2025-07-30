@@ -208,7 +208,7 @@ if submitted:
             - 📘 You can read more at:
                 - [American Diabetes Association](https://diabetes.org/health-wellness/eye-health)
                 - [WHO on Diabetic Retinopathy](https://www.who.int/news-room/fact-sheets/detail/blindness-and-visual-impairment)
-                - [Find a Retina Specialist Near You](https://www.asrs.org/find-a-specialist)
+                - [Find a Retina Specialist Near You](https://www.centreforsight.net/eye-specialists-near-me)
             - 💊 Discuss your medications, blood sugar control, and eye care plan with a certified provider.
             """)
 
