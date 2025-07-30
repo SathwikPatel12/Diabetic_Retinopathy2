@@ -1,5 +1,8 @@
 streamlit
+streamlit-lottie
+plotly
 scikit-learn==1.6.1
 pandas
 joblib
 numpy
+requests
