@@ -57,44 +57,71 @@ st.markdown("This app predicts whether a person shows signs of diabetic retinopa
 # Makes your app more welcoming and modern.
 # -------------------------
 
+# -------------------------
+# Lottie Animations Section
+# -------------------------
 
-
-
-
-
-
-
-from streamlit_lottie import st_lottie
 import requests
+import time
+from streamlit_lottie import st_lottie
 
-def load_lottie_url(url):
+# Function to load Lottie from URL
+def load_lottie_url(url: str):
     r = requests.get(url)
-    if r.status_code != 200:
+    if r.status_code == 200:
+        return r.json()
+    else:
         return None
-    return r.json()
 
-# Dropdown for user to choose animation
-animation_choice = st.selectbox("🎞️ Choose an Animation Style:", ["Hello Bot", "Doctor", "Medical Animation", "Brain Diagnosis"])
+# 👉 Let user choose how they want to see animation
+animation_mode = st.radio("🎬 Choose Animation Mode:", ["Auto-Rotate", "Manual Selection"])
 
-# Pick animation based on selection
-if animation_choice == "Hello Bot":
-    url = "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json"
-elif animation_choice == "Doctor":
-    url = "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json"
-elif animation_choice == "Medical Animation":
-    url = "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
-else:  # Brain Diagnosis
-    url = "https://assets9.lottiefiles.com/packages/lf20_F9A4lW.json"
+if animation_mode == "Auto-Rotate":
+    # Multiple animations for auto-switch
+    lottie_urls = [
+        "https://lottie.host/0f63e07a-d84f-4fc1-9c82-f4a92d66cb20/e6RkU4a0Lk.json",
+        "https://lottie.host/0e3c305b-63f2-45e2-9848-0adf87c6c264/JmASOSa6S5.json",
+        "https://lottie.host/cf7f52c4-0011-486e-b4a2-7a08aa8818ea/Njf9ZoAAva.json"
+    ]
 
+    # Preload animations
+    lotties = [load_lottie_url(url) for url in lottie_urls]
 
-# Load a medical animation
-lottie_medical = load_lottie_url(url)
+    # Animation container
+    placeholder = st.empty()
 
-# Display the selected animation
-if lottie_medical:
-    st_lottie(lottie_medical, height=250)
+    # Show each animation for 3 seconds
+    for lottie in lotties:
+        with placeholder:
+            st_lottie(lottie, height=300, key=str(time.time()))
+        time.sleep(3)
+
 else:
-    st.warning("⚠️ Animation couldn't load.")
+    # Dropdown to select a specific animation
+    animation_choice = st.selectbox(
+        "🎞️ Choose a Medical Animation:",
+        ["Hello Bot", "Doctor", "Medical Animation", "Brain Diagnosis"]
+    )
+
+    animation_dict = {
+        "Hello Bot": "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json",
+        "Doctor": "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json",
+        "Medical Animation": "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json",
+        "Brain Diagnosis": "https://assets9.lottiefiles.com/packages/lf20_F9A4lW.json"
+    }
+
+    selected_url = animation_dict[animation_choice]
+    selected_animation = load_lottie_url(selected_url)
+
+    if selected_animation:
+        st_lottie(selected_animation, height=250)
+    else:
+        st.warning("⚠️ Could not load animation.")
+
+
+
+
+
 
 
 
