@@ -60,6 +60,8 @@ def load_lottie_url(url):
 # Load a medical animation
 lottie_medical = load_lottie_url("https://assets9.lottiefiles.com/packages/lf20_F9A4lW.json")
 lottie_medical = load_lottie_url("https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json")
+lottie_medical = load_lottie_url("https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json")
+
 
 
 # Display the animation
