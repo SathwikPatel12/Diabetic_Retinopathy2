@@ -46,6 +46,28 @@ st.title("👁️🩺 Diabetic Retinopathy Prediction App")
 st.markdown("This app predicts whether a person shows signs of diabetic retinopathy based on input health features.")
 
 # -------------------------
+# Lottie Animation (Improvement 2)
+# -------------------------
+from streamlit_lottie import st_lottie
+import requests
+
+def load_lottie_url(url):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+
+# Load a medical animation
+lottie_medical = load_lottie_url("https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json")
+
+# Display the animation
+if lottie_medical:
+    st_lottie(lottie_medical, height=200)
+else:
+    st.warning("⚠️ Animation couldn't load.")
+
+
+# -------------------------
 # Sidebar Info
 # -------------------------
 with st.sidebar.expander("ℹ️ About this app"):
