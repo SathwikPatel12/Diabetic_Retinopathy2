@@ -2,7 +2,11 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+import requests
+import time
+from streamlit_lottie import st_lottie
 import joblib
+
 
 # -------------------------
 # Load Model (with caching)
@@ -52,6 +56,47 @@ st.markdown("This app predicts whether a person shows signs of diabetic retinopa
 # Adds visual interest and professional medical feel.
 # Makes your app more welcoming and modern.
 # -------------------------
+
+
+import requests
+import time
+from streamlit_lottie import st_lottie
+
+# Function to load Lottie from URL
+def load_lottie_url(url: str):
+    r = requests.get(url)
+    if r.status_code == 200:
+        return r.json()
+    else:
+        return None
+
+# Lottie animation URLs
+lottie_urls = [
+    "https://lottie.host/0f63e07a-d84f-4fc1-9c82-f4a92d66cb20/e6RkU4a0Lk.json",
+    "https://lottie.host/0e3c305b-63f2-45e2-9848-0adf87c6c264/JmASOSa6S5.json",
+    "https://lottie.host/cf7f52c4-0011-486e-b4a2-7a08aa8818ea/Njf9ZoAAva.json"
+]
+
+# Pre-load Lotties
+lotties = [load_lottie_url(url) for url in lottie_urls]
+
+# Title
+st.title("🙏 Welcome to Diabetic Retinopathy Predictor")
+
+# Create a placeholder for dynamic animation
+animation_placeholder = st.empty()
+
+# Loop through animations
+for lottie in lotties:
+    with animation_placeholder:
+        st_lottie(lottie, height=300, key=str(time.time()))
+    time.sleep(3)  # Change image every 3 seconds
+
+
+
+
+
+
 from streamlit_lottie import st_lottie
 import requests
 
