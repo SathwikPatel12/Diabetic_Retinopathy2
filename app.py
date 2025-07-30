@@ -2,8 +2,6 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
-import requests
-import time
 from streamlit_lottie import st_lottie
 import joblib
 
@@ -56,12 +54,6 @@ st.markdown("This app predicts whether a person shows signs of diabetic retinopa
 # Adds visual interest and professional medical feel.
 # Makes your app more welcoming and modern.
 # -------------------------
-
-
-
-
-
-
 
 
 from streamlit_lottie import st_lottie
