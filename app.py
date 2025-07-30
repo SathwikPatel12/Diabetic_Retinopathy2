@@ -189,13 +189,38 @@ if submitted:
     """, unsafe_allow_html=True)
 
 
-    # Display prediction result
+    # -------------------------
+    # Display prediction result    (Improvement 2)
+    # -------------------------
     st.markdown("### 🔍 Prediction Result")
+    #if prediction == 1:
+    #    st.error(f"🧪 The model predicts **presence** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
+    #else:
+    #    st.success(f"✅ The model predicts **no signs** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
     if prediction == 1:
         st.error(f"🧪 The model predicts **presence** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
+
+        with st.expander("📢 What to Do Next?"):
+            st.markdown("""
+            - 👨‍⚕️ **Please consult an eye care specialist or diabetologist immediately.**
+            - 🏥 Early treatment can help prevent vision loss.
+            - 📘 You can read more at:
+                - [American Diabetes Association](https://www.diabetes.org/diabetes/eye-complications)
+                - [WHO on Diabetic Retinopathy](https://www.who.int/news-room/fact-sheets/detail/blindness-and-vision-impairment)
+                - [Find a Retina Specialist Near You](https://www.asrs.org/find-a-specialist)
+            - 💊 Discuss your medications, blood sugar control, and eye care plan with a certified provider.
+            """)
+
     else:
         st.success(f"✅ The model predicts **no signs** of Diabetic Retinopathy (Confidence: {confidence:.2f})")
-
+    
+        with st.expander("💡 Wellness Tip"):
+            st.markdown("""
+            - 👁️ It's still important to get your eyes checked **annually**.
+            - 🥗 Maintain a healthy diet and regular exercise.
+            - 📖 Learn about prevention: [NIH Diabetic Eye Disease Info](https://www.nei.nih.gov/learn-about-eye-health/eye-conditions-and-diseases/diabetic-retinopathy)
+            """)
+ 
     
     # Confidence Progress, Add a Progress Bar for Confidence
     #st.write("📊 Model Confidence:")
