@@ -1,4 +1,5 @@
 streamlit
+streamlit-lottie
 scikit-learn==1.6.1
 pandas
 joblib
