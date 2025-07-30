@@ -44,7 +44,7 @@ st.markdown("""
 st.title("👁️🩺 Diabetic Retinopathy Prediction App")
 st.markdown("This app predicts whether a person shows signs of diabetic retinopathy based on input health features.")
 
-!pip install streamlit-lottie
+pip install streamlit-lottie
 from streamlit_lottie import st_lottie
 import requests
 
