@@ -58,45 +58,43 @@ st.markdown("This app predicts whether a person shows signs of diabetic retinopa
 # -------------------------
 
 
-import requests
-import time
+
+
+
+
+
+
 from streamlit_lottie import st_lottie
+import requests
 
-# Function to load Lottie from URL
-def load_lottie_url(url: str):
+def load_lottie_url(url):
     r = requests.get(url)
-    if r.status_code == 200:
-        return r.json()
-    else:
+    if r.status_code != 200:
         return None
+    return r.json()
 
-# Lottie animation URLs
-lottie_urls = [
-    "https://lottie.host/0f63e07a-d84f-4fc1-9c82-f4a92d66cb20/e6RkU4a0Lk.json",
-    "https://lottie.host/0e3c305b-63f2-45e2-9848-0adf87c6c264/JmASOSa6S5.json",
-    "https://lottie.host/cf7f52c4-0011-486e-b4a2-7a08aa8818ea/Njf9ZoAAva.json"
-]
+# Dropdown for user to choose animation
+animation_choice = st.selectbox("🎞️ Choose an Animation Style:", ["Hello Bot", "Doctor", "Medical Animation", "Brain Diagnosis"])
 
-# Pre-load Lotties
-lotties = [load_lottie_url(url) for url in lottie_urls]
-
-# Title
-st.title("🙏 Welcome to Diabetic Retinopathy Predictor")
-
-# Create a placeholder for dynamic animation
-animation_placeholder = st.empty()
-
-# Loop through animations
-for lottie in lotties:
-    with animation_placeholder:
-        st_lottie(lottie, height=300, key=str(time.time()))
-    time.sleep(3)  # Change image every 3 seconds
+# Pick animation based on selection
+if animation_choice == "Hello Bot":
+    url = "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json"
+elif animation_choice == "Doctor":
+    url = "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json"
+elif animation_choice == "Medical Animation":
+    url = "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
+else:  # Brain Diagnosis
+    url = "https://assets9.lottiefiles.com/packages/lf20_F9A4lW.json"
 
 
+# Load a medical animation
+lottie_medical = load_lottie_url(url)
 
-
-
-
+# Display the selected animation
+if lottie_medical:
+    st_lottie(lottie_medical, height=250)
+else:
+    st.warning("⚠️ Animation couldn't load.")
 
 
 
