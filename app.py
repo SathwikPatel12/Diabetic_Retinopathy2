@@ -58,7 +58,7 @@ def load_lottie_url(url):
     return r.json()
 
 # Load a medical animation
-lottie_medical = load_lottie_url("https://assets4.lottiefiles.com/packages/lf20_ldfliwlm.json")
+lottie_medical = load_lottie_url("https://assets9.lottiefiles.com/packages/lf20_F9A4lW.json")
 
 # Display the animation
 if lottie_medical:
