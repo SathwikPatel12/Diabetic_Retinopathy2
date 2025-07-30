@@ -61,62 +61,57 @@ st.markdown("This app predicts whether a person shows signs of diabetic retinopa
 # Lottie Animations Section
 # -------------------------
 
+
+
+import streamlit as st
 import requests
 import time
 from streamlit_lottie import st_lottie
 
-# Function to load Lottie from URL
+# Function to load Lottie JSON
 def load_lottie_url(url: str):
-    r = requests.get(url)
-    if r.status_code == 200:
-        return r.json()
-    else:
+    try:
+        r = requests.get(url)
+        if r.status_code == 200:
+            return r.json()
+    except:
         return None
+    return None
 
-# 👉 Let user choose how they want to see animation
-animation_mode = st.radio("🎬 Choose Animation Mode:", ["Auto-Rotate", "Manual Selection"])
+# Animation URLs (working ones you selected)
+lottie_urls = [
+    "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json",
+    "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json",
+    "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
+]
 
-if animation_mode == "Auto-Rotate":
-    # Multiple animations for auto-switch
-    lottie_urls = [
-        "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json",
-        "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json",
-        "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
-    ]
+# Load animations just once (cache)
+@st.cache_data
+def load_all_lotties(urls):
+    return [load_lottie_url(url) for url in urls]
 
-    # Preload animations
-    lotties = [load_lottie_url(url) for url in lottie_urls]
+lotties = load_all_lotties(lottie_urls)
 
-    # Animation container
-    placeholder = st.empty()
+# Set up session state index
+if 'anim_index' not in st.session_state:
+    st.session_state.anim_index = 0
+if 'last_update' not in st.session_state:
+    st.session_state.last_update = time.time()
 
-    # Show each animation for 3 seconds
-    for lottie in lotties:
-        with placeholder:
-            st_lottie(lottie, height=300, key=str(time.time()))
-        time.sleep(3)
+# Animation logic (rotate every 3 seconds without blocking input)
+now = time.time()
+if now - st.session_state.last_update >= 3:
+    st.session_state.anim_index = (st.session_state.anim_index + 1) % len(lotties)
+    st.session_state.last_update = now
+    st.experimental_rerun()
 
-else:
-    # Dropdown to select a specific animation
-    animation_choice = st.selectbox(
-        "🎞️ Choose a Medical Animation:",
-        ["Hello Bot", "Doctor", "Medical Animation", "Brain Diagnosis"]
-    )
+# Display animation
+st_lottie(lotties[st.session_state.anim_index], height=300)
 
-    animation_dict = {
-        "Hello Bot": "https://assets1.lottiefiles.com/packages/lf20_3vbOcw.json",
-        "Doctor": "https://assets2.lottiefiles.com/packages/lf20_tutvdkg0.json",
-        "Medical Animation": "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json",
-        "Brain Diagnosis": "https://assets9.lottiefiles.com/packages/lf20_F9A4lW.json"
-    }
+# ---- Now rest of your app can continue below this ----
+st.title("👁️🩺 Diabetic Retinopathy Prediction App")
+st.markdown("This app predicts whether a person shows signs of diabetic retinopathy based on input health features.")
 
-    selected_url = animation_dict[animation_choice]
-    selected_animation = load_lottie_url(selected_url)
-
-    if selected_animation:
-        st_lottie(selected_animation, height=250)
-    else:
-        st.warning("⚠️ Could not load animation.")
 
 
 
