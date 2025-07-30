@@ -71,7 +71,9 @@ elif animation_choice == "Doctor":
 elif animation_choice == "Medical Animation":
     url = "https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json"
 else:  # Brain Diagnosis
-    url = "https://assets9.lottiefiles.com/packages/lf20_F9A4lW.json"
+    #url = "https://assets9.lottiefiles.com/packages/lf20_F9A4lW.json"
+    url = "https://assets3.lottiefiles.com/packages/lf20_exampleWorking.json"
+
 
 # Load a medical animation
 lottie_medical = load_lottie_url(url)
