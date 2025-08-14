@@ -9,7 +9,7 @@ This web application predicts the **presence or absence of Diabetic Retinopathy 
 
 ## 🔍 Live Demo
 
-🔗 [Click here to try the app](https://diabeticretinopathy2-may5gscbip9zr7bnbeivwb.streamlit.app/)
+🔗 [Click here to try the app](https://diabeticretinopathyapps-4rtpmpa2o5tccappaua66pk.streamlit.app/)
 
 ---
 
